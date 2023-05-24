@@ -1,80 +1,80 @@
 #include "shell.h"
 
 /**
- * input_buf - buffers chained commands
- * @info: parameter struct
- * @buf: address of buffer
- * @len: address of len var
+ * chainz - buffers chained commands
+ * @square: parameter struct
+ * @john: address of buffer
+ * @amy: address of len var
  *
  * Return: bytes read
  */
-ssize_t input_buf(info_t *info, char **buf, size_t *len)
+ssize_t chainz(square_t *square, char **john, size_t *amy)
 {
-	ssize_t r = 0;
-	size_t len_p = 0;
-
-	if (!*len) /* if nothing left in the buffer, fill it */
+	ssize_t op = 0;
+	size_t amy_d = 0;
+/*still the first section*/
+	if (!*amy) /* if nothing left in the buffer, fill it */
 	{
-		/*bfree((void **)info->cmd_buf);*/
-		free(*buf);
-		*buf = NULL;
+		/*bfree((void **)square->cmd_john);*/
+		free(*john);
+		*john = NULL;
 		signal(SIGINT, sigintHandler);
 #if USE_GETLINE
-		r = getline(buf, &len_p, stdin);
+		op = getline(john, &amy_d, stdin);
 #else
-		r = _getline(info, buf, &len_p);
+		op = _getline(square, john, &amy_d);
 #endif
-		if (r > 0)
+		if (op > 0)
 		{
-			if ((*buf)[r - 1] == '\n')
+			if ((*john)[op - 1] == '\n')
 			{
-				(*buf)[r - 1] = '\0'; /* remove trailing newline */
-				r--;
+				(*john)[op - 1] = '\0'; /* remove trailing newline */
+				op--;
 			}
-			info->linecount_flag = 1;
-			remove_comments(*buf);
-			build_history_list(info, *buf, info->histcount++);
+			square->linecount_flag = 1;
+			remove_comments(*john);
+			build_history_list(square, *john, square->histcount++);
 			/* if (_strchr(*buf, ';')) is this a command chain? */
 			{
-				*len = r;
-				info->cmd_buf = buf;
+				*amy = op;
+				square->cmd_john = john;
 			}
 		}
 	}
-	return (r);
+	return (op);
 }
-
+/*try to be consistent*/
 /**
- * get_input - gets a line minus the newline
- * @info: parameter struct
- *
+ * altern - gets a line minus the newline
+ * @square: parameter struct
+ *this is c language
  * Return: bytes read
  */
 ssize_t get_input(info_t *info)
 {
-	static char *buf; /* the ';' command chain buffer */
-	static size_t i, j, len;
-	ssize_t r = 0;
-	char **buf_p = &(info->arg), *p;
-
+	static char *john; /* the ';' command chain buffer */
+	static size_t a, b, amy;
+	ssize_t op = 0;
+	char **john_d = &(square->arg), *d;
+/*this is the third section*/
 	_putchar(BUF_FLUSH);
-	r = input_buf(info, &buf, &len);
-	if (r == -1) /* EOF */
+	op = input_john(square, &john, &amy);
+	if (op == -1) /* EOF */
 		return (-1);
-	if (len) /* we have commands left in the chain buffer */
+	if (amy) /* we have commands left in the chain buffer */
 	{
-		j = i; /* init new iterator to current buf position */
-		p = buf + i; /* get pointer for return */
-
-		check_chain(info, buf, &j, i, len);
-		while (j < len) /* iterate to semicolon or end */
+		b = a; /* init new iterator to current buf position */
+		d = john + a; /* get pointer for return */
+/*this is progressing*/
+		check_chain(square, john, &b, a, amy);
+		while (b < amy) /* iterate to semicolon or end */
 		{
-			if (is_chain(info, buf, &j))
+			if (is_chain(square, john, &b))
 				break;
-			j++;
+			b++;
 		}
-
-		i = j + 1; /* increment past nulled ';'' */
+/*remember to take stock*/
+		a = b + 1; /* increment past nulled ';'' */
 		if (i >= len) /* reached end of buffer? */
 		{
 			i = len = 0; /* reset position and length */

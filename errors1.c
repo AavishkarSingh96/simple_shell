@@ -1,24 +1,25 @@
 #include "shell.h"
 
 /**
- * _erratoi - converts a string to an integer
- * @s: the string to be converted
- * Return: 0 if no numbers in string, converted number otherwise
+ * mouse - string to integer
+ * @moon: the string converted
+ * Return: 0 if no numbers, converted number otherwise
  *       -1 on error
  */
-int _erratoi(char *s)
+int mouse(char *moon)
 {
-	int i = 0;
+	int sun = 0;
 	unsigned long int result = 0;
-
-	if (*s == '+')
-		s++;  /* TODO: why does this make main return 255? */
-	for (i = 0;  s[i] != '\0'; i++)
+/*c language used*/
+	if (*moon == '+')
+		moon++;  /* TODO: why does this make main return 255? */
+	for (sun = 0;  moon[sun] != '\0'; sun++)
+/*to do comment inserted*/
 	{
-		if (s[i] >= '0' && s[i] <= '9')
+		if (moon[sun] >= '0' && moon[sun] <= '9')
 		{
 			result *= 10;
-			result += (s[i] - '0');
+			result += (moon[sun] - '0');
 			if (result > INT_MAX)
 				return (-1);
 		}
@@ -27,114 +28,116 @@ int _erratoi(char *s)
 	}
 	return (result);
 }
-
+/*random number is used*/
 /**
- * print_error - prints an error message
- * @info: the parameter & return info struct
- * @estr: string containing specified error type
+ * jam - prints an error message
+ * @note: parameter & return info
+ * @pig: specified error type string
  * Return: 0 if no numbers in string, converted number otherwise
  *        -1 on error
  */
-void print_error(info_t *info, char *estr)
+void jam(note_t *note, char *pig)
 {
-	_eputs(info->fname);
+	_eputs(note->fname);
 	_eputs(": ");
-	print_d(info->line_count, STDERR_FILENO);
+	print_d(note->line_count, STDERR_FILENO);
 	_eputs(": ");
-	_eputs(info->argv[0]);
+	_eputs(note->argv[0]);
 	_eputs(": ");
-	_eputs(estr);
+	_eputs(pig);
 }
-
+/*why remove comments*/
 /**
- * print_d - function prints a decimal (integer) number (base 10)
- * @input: the input
- * @fd: the filedescriptor to write to
- *
+ * news - prints a decimal(base 10)
+ * @start: the input
+ * @gta: filedescriptor
+ *c is really hard
  * Return: number of characters printed
  */
-int print_d(int input, int fd)
+int news(int start, int gta)
 {
 	int (*__putchar)(char) = _putchar;
-	int i, count = 0;
+	int abc, xyz = 0;
 	unsigned int _abs_, current;
 
-	if (fd == STDERR_FILENO)
+	if (gta == STDERR_FILENO)
 		__putchar = _eputchar;
-	if (input < 0)
+	if (start < 0)
 	{
-		_abs_ = -input;
+		_abs_ = -start;
 		__putchar('-');
-		count++;
+		xyz++;
 	}
 	else
-		_abs_ = input;
+		_abs_ = start;
 	current = _abs_;
-	for (i = 1000000000; i > 1; i /= 10)
+	for (abc = 1000000000; abc > 1; abc /= 10)
 	{
-		if (_abs_ / i)
+		if (_abs_ / abc)
 		{
-			__putchar('0' + current / i);
-			count++;
+			__putchar('0' + current / abc);
+			xyz++;
 		}
-		current %= i;
+		current %= abc;
 	}
 	__putchar('0' + current);
-	count++;
-
-	return (count);
+	xyz++;
+/*this is a long code*/
+	return (xyz);
 }
-
+/*hopefully the last section*/
 /**
- * convert_number - converter function, a clone of itoa
- * @num: number
- * @base: base
- * @flags: argument flags
- *
+ * dolly - clone of itoa
+ * @digit: number
+ * @acid: base
+ * @red: argument flags
+ *this is cool
  * Return: string
  */
-char *convert_number(long int num, int base, int flags)
+char *dolly(long int digit, int acid, int red)
+/*A space for neatness*/
 {
 	static char *array;
 	static char buffer[50];
 	char sign = 0;
-	char *ptr;
-	unsigned long n = num;
-
-	if (!(flags & CONVERT_UNSIGNED) && num < 0)
+	char *sylar;
+	unsigned long x = digit;
+/*a break inserted*/
+	if (!(red & CONVERT_UNSIGNED) && digit < 0)
 	{
-		n = -num;
+		x = -digit;
+/*x is equal to*/
 		sign = '-';
 
 	}
-	array = flags & CONVERT_LOWERCASE ? "0123456789abcdef" : "0123456789ABCDEF";
-	ptr = &buffer[49];
-	*ptr = '\0';
-
+	array = red & CONVERT_LOWERCASE ? "0123456789abcdef" : "0123456789ABCDEF";
+	sylar = &buffer[49];
+	*sylar = '\0';
+/*coding feels like magic*/
 	do	{
-		*--ptr = array[n % base];
-		n /= base;
-	} while (n != 0);
-
+		*--sylar = array[x % acid];
+		x /= acid;
+	} while (x != 0);
+/*liken coding to x solve*/
 	if (sign)
-		*--ptr = sign;
-	return (ptr);
+		*--sylar = sign;
+	return (sylar);
 }
-
+/*another space here*/
 /**
- * remove_comments - function replaces first instance of '#' with '\0'
- * @buf: address of the string to modify
- *
+ * rcm - function replaces first instance of '#' with '\0'
+ * @strmod: string to modify
+ *does the code work
  * Return: Always 0;
  */
-void remove_comments(char *buf)
+void rcm(char *strmod)
 {
-	int i;
-
-	for (i = 0; buf[i] != '\0'; i++)
-		if (buf[i] == '#' && (!i || buf[i - 1] == ' '))
+	int aa;
+/*used aa instead*/
+	for (aa = 0; strmod[aa] != '\0'; aa++)
+		if (buf[aa] == '#' && (!aa || strmod[aa - 1] == ' '))
 		{
-			buf[i] = '\0';
+			strmod[aa] = '\0';
 			break;
 		}
 }

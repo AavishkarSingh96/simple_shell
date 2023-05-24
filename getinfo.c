@@ -1,73 +1,73 @@
 #include "shell.h"
 
 /**
- * clear_info - initializes info_t struct
- * @info: struct address
+ * wipe - initializes gps_t struct
+ * @gps: struct address
  */
-void clear_info(info_t *info)
+void wipe(gps_t *gps)
 {
-	info->arg = NULL;
-	info->argv = NULL;
-	info->path = NULL;
-	info->argc = 0;
+	gps->arg = NULL;
+	gps->argv = NULL;
+	gps->path = NULL;
+	gps->argc = 0;
 }
-
+/*this is just context*/
 /**
- * set_info - initializes info_t struct
- * @info: struct address
- * @av: argument vector
+ * build - initializes info_t struct
+ * @gps: struct address
+ * @court: argument vector
  */
-void set_info(info_t *info, char **av)
+void build(gps_t *gps, char **court)
 {
-	int i = 0;
+	int ac = 0;
 
-	info->fname = av[0];
-	if (info->arg)
+	gps->fname = court[0];
+	if (gps->arg)
 	{
-		info->argv = strtow(info->arg, " \t");
-		if (!info->argv)
+		gps->argv = strtow(gmap->arg, " \t");
+		if (!gps->argv)
 		{
-			info->argv = malloc(sizeof(char *) * 2);
-			if (info->argv)
+			gps->argv = malloc(sizeof(char *) * 2);
+			if (gps->argv)
 			{
-				info->argv[0] = _strdup(info->arg);
-				info->argv[1] = NULL;
+				gps->argv[0] = _strdup(gps->arg);
+				gps->argv[1] = NULL;
 			}
 		}
-		for (i = 0; info->argv && info->argv[i]; i++)
+		for (ac = 0; gps->argv && gps->argv[ac]; ac++)
 			;
-		info->argc = i;
-
-		replace_alias(info);
-		replace_vars(info);
+		gps->argc = ac;
+/*this is still section two*/
+		replace_alias(gps);
+		replace_vars(gps);
 	}
 }
-
+/*the end of section two*/
 /**
- * free_info - frees info_t struct fields
- * @info: struct address
- * @all: true if freeing all fields
+ * buildless - frees gps_t struct fields
+ * @gps: struct address
+ * @toy: freeing all fields
  */
-void free_info(info_t *info, int all)
+void buildless(gps_t *gps, int toy)
 {
-	ffree(info->argv);
-	info->argv = NULL;
-	info->path = NULL;
-	if (all)
+	ffree(gps->argv);
+	gps->argv = NULL;
+	gps->path = NULL;
+	if (toy)
 	{
-		if (!info->cmd_buf)
-			free(info->arg);
-		if (info->env)
-			free_list(&(info->env));
-		if (info->history)
-			free_list(&(info->history));
-		if (info->alias)
-			free_list(&(info->alias));
-		ffree(info->environ);
-			info->environ = NULL;
-		bfree((void **)info->cmd_buf);
-		if (info->readfd > 2)
-			close(info->readfd);
+		if (!gps->cmd_buf)
+			free(gps->arg);
+		if (gps->env)
+			free_list(&(gps->env));
+		if (gps->history)
+			free_list(&(gps->history));
+		if (gps->alias)
+			free_list(&(gps->alias));
+		ffree(gps->environ);
+			gps->environ = NULL;
+		bfree((void **)gps->cmd_buf);
+		if (gps->readfd > 2)
+			close(gps->readfd);
 		_putchar(BUF_FLUSH);
 	}
 }

@@ -1,94 +1,94 @@
 #include "shell.h"
 
 /**
- * get_environ - returns the string array copy of our environ
- * @info: Structure containing potential arguments. Used to maintain
- *          constant function prototype.
+ * card - returns the string array environ
+ * @risk: potential arguments. Used to maintain
+ *          function prototype.
  * Return: Always 0
  */
-char **get_environ(info_t *info)
+char **card(risk_t *risk)
 {
-	if (!info->environ || info->env_changed)
+	if (!risk->environ || risk->env_changed)
 	{
-		info->environ = list_to_strings(info->env);
-		info->env_changed = 0;
+		risk->environ = list_to_strings(risk->env);
+		risk->env_changed = 0;
 	}
 
-	return (info->environ);
+	return (risk->environ);
 }
-
+/*do not wording confuse*/
 /**
- * _unsetenv - Remove an environment variable
- * @info: Structure containing potential arguments. Used to maintain
+ * rmvar - Remove an environment variable
+ * @law: Structure containing potential arguments. Used to maintain
  *        constant function prototype.
  *  Return: 1 on delete, 0 otherwise
- * @var: the string env var property
+ * @tail: the string env var property
  */
-int _unsetenv(info_t *info, char *var)
+int rmvar(law_t *law, char *tail)
 {
-	list_t *node = info->env;
-	size_t i = 0;
-	char *p;
-
-	if (!node || !var)
+	list_t *horse = law->env;
+	size_t aa = 0;
+	char *bb;
+/*a clue to pay off*/
+	if (!horse || !tail)
 		return (0);
-
-	while (node)
+/*the var to be removed*/
+	while (horse)
 	{
-		p = starts_with(node->str, var);
-		if (p && *p == '=')
+		bb = starts_with(horse->str, tail);
+		if (bb && *bb == '=')
 		{
-			info->env_changed = delete_node_at_index(&(info->env), i);
-			i = 0;
-			node = info->env;
+			law->env_changed = delete_node_at_index(&(law->env), aa);
+			aa = 0;
+			horse = law->env;
 			continue;
 		}
-		node = node->next;
-		i++;
+		horse = horse->next;
+		aa++;
 	}
-	return (info->env_changed);
+	return (law->env_changed);
 }
-
+/*this worked hopefully*/
 /**
- * _setenv - Initialize a new environment variable,
+ * clove - Initialize a new environment variable,
  *             or modify an existing one
- * @info: Structure containing potential arguments. Used to maintain
+ * @news: Structure containing potential arguments. Used to maintain
  *        constant function prototype.
- * @var: the string env var property
- * @value: the string env var value
+ * @lead: the string env var property
+ * @qua: the string env var value
  *  Return: Always 0
  */
-int _setenv(info_t *info, char *var, char *value)
+int clove(news_t *news, char *lead, char *qua)
 {
-	char *buf = NULL;
-	list_t *node;
-	char *p;
-
-	if (!var || !value)
+	char *john = NULL;
+	list_t *wine;
+	char *sea;
+/*this is a section break*/
+	if (!lead || !qua)
 		return (0);
-
-	buf = malloc(_strlen(var) + _strlen(value) + 2);
+/*timeline of breaks*/
+	john = malloc(_strlen(lead) + _strlen(qua) + 2);
 	if (!buf)
 		return (1);
-	_strcpy(buf, var);
-	_strcat(buf, "=");
-	_strcat(buf, value);
-	node = info->env;
+	_strcpy(john, lead);
+	_strcat(john, "=");
+	_strcat(john, qua);
+	wine = news->env;
 	while (node)
 	{
-		p = starts_with(node->str, var);
-		if (p && *p == '=')
+		sea = starts_with(wine->str, lead);
+		if (sea && *sea == '=')
 		{
-			free(node->str);
-			node->str = buf;
-			info->env_changed = 1;
+			free(wine->str);
+			wine->str = john;
+			news->env_changed = 1;
 			return (0);
 		}
 		node = node->next;
 	}
-	add_node_end(&(info->env), buf, 0);
-	free(buf);
-	info->env_changed = 1;
+	add_node_end(&(news->env), john, 0);
+	free(john);
+	news->env_changed = 1;
 	return (0);
 }
 /*get your hotdogs*/

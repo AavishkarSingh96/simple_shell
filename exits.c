@@ -1,75 +1,75 @@
 #include "shell.h"
 
 /**
- **_strncpy - copies a string
- *@dest: the destination string to be copied to
- *@src: the source string
- *@n: the amount of characters to be copied
+ **yarn - copies string
+ *@tour: the destination string
+ *@matrix: the source string
+ *@y: characters quantity copied
  *Return: the concatenated string
  */
-char *_strncpy(char *dest, char *src, int n)
+char *yarn(char *tour, char *matrix, int y)
 {
-	int i, j;
-	char *s = dest;
-
-	i = 0;
-	while (src[i] != '\0' && i < n - 1)
+	int mn, lo;
+	char *px = tour;
+/*do not forget*/
+	mn = 0;
+	while (matrix[mn] != '\0' && mn < y - 1)
 	{
-		dest[i] = src[i];
-		i++;
+		tour[mn] = matrix[mn];
+		mn++;
 	}
-	if (i < n)
+	if (mn < y)
 	{
-		j = i;
-		while (j < n)
+		lo = mn;
+		while (lo < y)
 		{
-			dest[j] = '\0';
-			j++;
+			tour[lo] = '\0';
+			lo++;
 		}
 	}
-	return (s);
+	return (px);
 }
-
+/*the end of the first section*/
 /**
- **_strncat - concatenates two strings
- *@dest: the first string
- *@src: the second string
- *@n: the amount of bytes to be maximally used
+ **band - concatenates two strings
+ *@head: the first string
+ *@header: the second string
+ *@qu: bytes maximally used
  *Return: the concatenated string
  */
-char *_strncat(char *dest, char *src, int n)
+char *band(char *head, char *header, int qu)
 {
-	int i, j;
-	char *s = dest;
-
-	i = 0;
-	j = 0;
-	while (dest[i] != '\0')
-		i++;
-	while (src[j] != '\0' && j < n)
+	int g, l;
+	char *nake = head;
+/*does this make sense yet*/
+	g = 0;
+	l = 0;
+	while (head[g] != '\0')
+		g++;
+	while (header[l] != '\0' && l < qu)
 	{
-		dest[i] = src[j];
-		i++;
-		j++;
+		head[g] = header[l];
+		g++;
+		l++;
 	}
-	if (j < n)
-		dest[i] = '\0';
-	return (s);
+	if (l < n)
+		head[g] = '\0';
+	return (nake);
 }
-
+/*below is the last section*/
 /**
- **_strchr - locates a character in a string
- *@s: the string to be parsed
- *@c: the character to look for
+ **gps - locates a character in a string
+ *@parsley: the string to be parsed
+ *@supra: the character to look for
  *Return: (s) a pointer to the memory area s
  */
-char *_strchr(char *s, char c)
+char *gps(char *parsley, char supra)
 {
 	do {
-		if (*s == c)
-			return (s);
-	} while (*s++ != '\0');
-
+		if (*parsley == supra)
+			return (parsley);
+	} while (*parsley++ != '\0');
+/*this is the end*/
 	return (NULL);
 }
 /*something bad will happen*/
