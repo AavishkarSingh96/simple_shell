@@ -1,75 +1,69 @@
 #include "shell.h"
 
 /**
- **_strncpy - copies a string
- *@dest: the destination string to be copied to
- *@src: the source string
- *@n: the amount of characters to be copied
- *Return: the concatenated string
+ * _strncpy - copies a string
+ * @dest: the destination string to be copied to
+ * @src: the source string
+ * @n: the amount of characters to be copied
+ *
+ * Return: the pointer to the destination string
  */
 char *_strncpy(char *dest, char *src, int n)
 {
-	int i, j;
-	char *s = dest;
+int i;
 
-	i = 0;
-	while (src[i] != '\0' && i < n - 1)
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	if (i < n)
-	{
-		j = i;
-		while (j < n)
-		{
-			dest[j] = '\0';
-			j++;
-		}
-	}
-	return (s);
+for (i = 0; i < n - 1 && src[i] != '\0'; i++)
+dest[i] = src[i];
+
+for (; i < n; i++)
+dest[i] = '\0';
+
+return (dest);
 }
 
 /**
- **_strncat - concatenates two strings
- *@dest: the first string
- *@src: the second string
- *@n: the amount of bytes to be maximally used
- *Return: the concatenated string
+ * _strncat - concatenates two strings
+ * @dest: the first string
+ * @src: the second string
+ * @n: the maximum number of characters to be appended from src
+ *
+ * Return: the pointer to the resulting string
  */
 char *_strncat(char *dest, char *src, int n)
 {
-	int i, j;
-	char *s = dest;
+int dest_len = 0;
+int i;
 
-	i = 0;
-	j = 0;
-	while (dest[i] != '\0')
-		i++;
-	while (src[j] != '\0' && j < n)
-	{
-		dest[i] = src[j];
-		i++;
-		j++;
-	}
-	if (j < n)
-		dest[i] = '\0';
-	return (s);
+while (dest[dest_len] != '\0')
+dest_len++;
+
+for (i = 0; i < n && src[i] != '\0'; i++)
+dest[dest_len + i] = src[i];
+
+dest[dest_len + i] = '\0';
+
+return (dest);
 }
 
 /**
- **_strchr - locates a character in a string
- *@s: the string to be parsed
- *@c: the character to look for
- *Return: (s) a pointer to the memory area s
+ * _strchr - locates a character in a string
+ * @s: the string to be searched
+ * @c: the character to be located
+ *
+ * Return: a pointer to the first occurrence of the character in the string,
+ *         or NULL if the character is not found
  */
 char *_strchr(char *s, char c)
 {
-	do {
-		if (*s == c)
-			return (s);
-	} while (*s++ != '\0');
-
-	return (NULL);
+while (*s != '\0')
+{
+if (*s == c)
+return (s);
+s++;
 }
-/*something bad will happen*/
+
+if (*s == c)
+return (s);
+
+return (NULL);
+}

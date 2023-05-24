@@ -10,6 +10,7 @@ void clear_info(info_t *info)
 	info->argv = NULL;
 	info->path = NULL;
 	info->argc = 0;
+/*Clears the arg, argv, path fields and sets argc to 0*/
 }
 
 /**
@@ -19,7 +20,7 @@ void clear_info(info_t *info)
  */
 void set_info(info_t *info, char **av)
 {
-	int i = 0;
+	int count = 0;
 
 	info->fname = av[0];
 	if (info->arg)
@@ -34,13 +35,17 @@ void set_info(info_t *info, char **av)
 				info->argv[1] = NULL;
 			}
 		}
-		for (i = 0; info->argv && info->argv[i]; i++)
+		for (count = 0; info->argv && info->argv[count]; count++)
 			;
-		info->argc = i;
-
+		info->argc = count;
 		replace_alias(info);
 		replace_vars(info);
 	}
+/*Set fname to the first element of av,Split arg into array of strings (argv)*/
+/*Allocate memory for argv with size 2,duplicate arg and store it in argv[0]*/
+/*Set next element of argv to null,Count number of elements in argv (argc)*/
+/*Replace aliases in argv then Replace variables in argv*/
+
 }
 
 /**
@@ -64,11 +69,11 @@ void free_info(info_t *info, int all)
 		if (info->alias)
 			free_list(&(info->alias));
 		ffree(info->environ);
-			info->environ = NULL;
+		info->environ = NULL;
 		bfree((void **)info->cmd_buf);
 		if (info->readfd > 2)
 			close(info->readfd);
 		_putchar(BUF_FLUSH);
 	}
+/*Frees memory allocated for argv and sets argv and path to null*/
 }
-/* laser like concentration*/
