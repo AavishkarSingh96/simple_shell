@@ -1,86 +1,87 @@
 #include "shell.h"
 
 /**
- * prstr - input string
- * @line: the string
- *c is used here
+ * _eputs - prints a string to stderr
+ * @str: The string to be printed
+ *
  * Return: Nothing
  */
-void prstr(char *line)
+void _eputs(char *str)
 {
-	int aa = 0;
-/*mix not up the two*/
-	if (!line)
+	int i = 0;
+
+	if (!str)
 		return;
-	while (line[aa] != '\0')
+
+	while (str[i] != '\0')
 	{
-		_camera(line[aa]);
-		aa++;
+		_eputchar(str[i]); /* Call _eputchar to print each character */
+		i++;
 	}
 }
-/*why is that below*/
+
 /**
- * camera - writes c to stderr
- * @pp: character print
- *scroll down
- * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
- */
-int camera(char pp)
-{
-	static int bb;
-	static char buf[WRITE_BUF_SIZE];
-/*does this make sense*/
-	if (pp == BUF_FLUSH || bb >= WRITE_BUF_SIZE)
-	{
-		write(2, buf, bb);
-		bb = 0;
-	}
-	if (pp != BUF_FLUSH)
-		buf[bb++] = pp;
-	return (1);
-}
-/*the last section*/
-/**
- * tree - c to given fd
- * @pp: The character to print
- * @bam: The filedescriptor to write to
+ * _eputchar - writes a character to stderr
+ * @c: The character
  *
  * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
+ *         On error, -1 is returned
  */
-int tree(char pp, int bam)
+int _eputchar(char c)
 {
-	static int ff;
-	static char pen[WRITE_BUF_SIZE];
+	static int i;
+	static char buf[WRITE_BUF_SIZE];
 
-	if (pp == BUF_FLUSH || ff >= WRITE_BUF_SIZE)
+	if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
 	{
-		write(bam, pen, ff);
-		ff = 0;
+		write(2, buf, i); /* Write the buffer to stderr */
+		i = 0;
 	}
-	if (pp != BUF_FLUSH)
-		pen[ff++] = pp;
+	if (c != BUF_FLUSH)
+		buf[i++] = c;
 	return (1);
 }
 
 /**
- * xerox - input string
- * @bank: string printed
- * @green: the filedescriptor
- *this is the last section
- * Return: the number of chars put
+ * _putfd - writes a character
+ * @c: The character
+ * @fd: The file descriptor
+ *
+ * Return: On success 1.
+ *         On error, -1 is returned
  */
-int xerox(char *bank, int green)
+int _putfd(char c, int fd)
 {
-	int gg = 0;
-/*this is necessary*/
-	if (!bank)
-		return (0);
-	while (*bank)
+	static int phy;
+	static char buf[WRITE_BUF_SIZE];
+
+	if (c == BUF_FLUSH || phy >= WRITE_BUF_SIZE)
 	{
-		gg += printgreen(*bank++, green);
+		write(fd, buf, phy); /* Write the buffer to the specified file descriptor */
+		phy = 0;
 	}
-	return (gg);
+	if (c != BUF_FLUSH)
+		buf[phy++] = c;
+	return (1);
 }
-/*imagine they pull this*/
+
+/**
+ * _putsfd - prints a string
+ * @str: The string
+ * @fd: The file descriptor
+ *
+ * Return: The number of characters written
+ */
+int _putsfd(char *str, int fd)
+{
+	int x = 0;
+
+	if (!str)
+		return (0);
+
+	while (*str)
+	{
+		x += _putfd(*str++, fd); /* Call _putfd to print each character */
+	}
+	return (x);
+}

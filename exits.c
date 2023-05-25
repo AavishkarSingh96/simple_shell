@@ -1,75 +1,80 @@
 #include "shell.h"
 
 /**
- **yarn - copies string
- *@tour: the destination string
- *@matrix: the source string
- *@y: characters quantity copied
- *Return: the concatenated string
+ * _strncpy - copies a string
+ * @dest: The destination for the string
+ * @src: The source string
+ * @n: The number of characters copied
+ *
+ * Return: A pointer to the destination string
  */
-char *yarn(char *tour, char *matrix, int y)
+char *_strncpy(char *dest, char *src, int n)
 {
-	int mn, lo;
-	char *px = tour;
-/*do not forget*/
-	mn = 0;
-	while (matrix[mn] != '\0' && mn < y - 1)
+	int i, j;
+	char *s = dest;
+
+	i = 0;
+	while (src[i] != '\0' && i < n - 1)
 	{
-		tour[mn] = matrix[mn];
-		mn++;
+		dest[i] = src[i];
+		i++;
 	}
-	if (mn < y)
+	if (i < n)
 	{
-		lo = mn;
-		while (lo < y)
+		j = i;
+		while (j < n)
 		{
-			tour[lo] = '\0';
-			lo++;
+			dest[j] = '\0';
+		/* Add null characters to pad the remaining space */
+			j++;
 		}
 	}
-	return (px);
+	return (s);
 }
-/*the end of the first section*/
+
 /**
- **band - concatenates two strings
- *@head: the first string
- *@header: the second string
- *@qu: bytes maximally used
- *Return: the concatenated string
+ * _strncat - concatenates two strings
+ * @dest: first string
+ * @src: second string
+ * @n: The maximum number of bytes to be used
+ *
+ * Return: A pointer to the concatenated string
  */
-char *band(char *head, char *header, int qu)
+char *_strncat(char *dest, char *src, int n)
 {
-	int g, l;
-	char *nake = head;
-/*does this make sense yet*/
-	g = 0;
-	l = 0;
-	while (head[g] != '\0')
-		g++;
-	while (header[l] != '\0' && l < qu)
+	int i, j;
+	char *s = dest;
+
+	i = 0;
+	j = 0;
+	while (dest[i] != '\0')
+		i++;
+
+	while (src[j] != '\0' && j < n)
 	{
-		head[g] = header[l];
-		g++;
-		l++;
+		dest[i] = src[j];
+		i++;
+		j++;
 	}
-	if (l < n)
-		head[g] = '\0';
-	return (nake);
+	if (j < n)
+		dest[i] = '\0';
+	/* Add null character to terminate the concatenated string */
+	return (s);
 }
-/*below is the last section*/
+
 /**
- **gps - locates a character in a string
- *@parsley: the string to be parsed
- *@supra: the character to look for
- *Return: (s) a pointer to the memory area s
+ * _strchr - locates a character
+ * @s: The string
+ * @c: The character
+ *
+ * Return: A pointer to the first character in the string
  */
-char *gps(char *parsley, char supra)
+char *_strchr(char *s, char c)
 {
 	do {
-		if (*parsley == supra)
-			return (parsley);
-	} while (*parsley++ != '\0');
-/*this is the end*/
-	return (NULL);
+		if (*s == c)
+			return (s);
+	} while (*s++ != '\0');
+
+	return (NULL); /* Return NULL if the character is not found */
 }
-/*something bad will happen*/

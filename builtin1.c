@@ -1,117 +1,120 @@
 #include "shell.h"
 
 /**
- * _book - displays the history list
- *              starting at 0.
- * @argue: potential arguments.
- *        constant function prototype.
- *  Return: Always 0
+ * _myhistory - displays the history list
+ * @info: Structure containing potential arguments
+ *
+ * Return: Always 0
  */
-int _book(argue_t *argue)
+int _myhistory(info_t *info)
 {
-	print_list(argue->book);
-/*c language used here*/
+	print_list(info->history); /* Print the history list */
 	return (0);
 }
-/*this removes space*/
+
 /**
- * sent - alias string destination
- * @news: parameter struct
- * @line: the string alias
- *this is c language
- * Return: Always 0 on success, 1 on error
- */
-int sent(news_t *news, char *line)
-{
-	char *axe, dam;
-	int eye;
-/*remove the space no error*/
-	axe = _strchr(line, '=');
-	if (!axe)
-		return (1);
-	dam = *axe;
-	*axe = 0;
-	eye = delete_node_at_index(&(news->sent),
-/*flip phones*/
-		get_node_index(news->sent, node_starts_with(news->sent, line, -1)));
-	*axe = c;
-	return (eye);
-}
-/**
- * car - to string
- * @pap: parameter struct
- * @con: the string alias
+ * unset_alias - removes an alias from the alias list
+ * @info: parameter struct
+ * @str: the alias string
  *
  * Return: Always 0 on success, 1 on error
  */
-int car(pap_t *pap, char *con)
+int unset_alias(info_t *info, char *str)
 {
-	char *red;
-/*used colours*/
-	red = _strchr(con, '=');
-	if (!red)
+	char *p, c;
+	int ret;
+
+	p = _strchr(str, '=');
+	if (!p)
 		return (1);
-	if (!*++red)
-		return (unset_alias(pap, con));
-/*too cynical*/
-	car(info, con);
-	return (add_node_end(&(pap->car), con, 0) == NULL);
+
+	c = *p;
+	*p = 0;/* Terminate the string at the position of '=' */
+	/* Delete the node with matching alias from the alias list */
+	ret = delete_node_at_index(&(info->alias),
+	get_node_index(info->alias, node_starts_with(info->alias, str, -1)));
+	*p = c;/* Restore the original string */
+	return (ret);
 }
-/*this section ends*/
+
 /**
- * kite - alias string
- * @pond: the alias node
- *c is almost done
+ * set_alias - sets an alias in the alias list
+ * @info: parameter struct
+ * @str: the alias string
+ *
  * Return: Always 0 on success, 1 on error
  */
-int kite(list_t *pond)
+int set_alias(info_t *info, char *str)
 {
-	char *tt = NULL, *dd = NULL;
+	char *p;
 
-	if (pond)
+	p = _strchr(str, '=');
+	if (!p)
+		return (1);
+
+	if (!*++p)
+		return (unset_alias(info, str)); /* If value is empty, unset the alias */
+
+	unset_alias(info, str); /* Remove any existing alias with the same name */
+	return (add_node_end(&(info->alias), str, 0) == NULL);
+	/* Add the new alias to the end of the alias list */
+}
+
+/**
+ * print_alias - prints an alias string
+ * @node: the alias node
+ *
+ * Return: Always 0 on success, 1 on error
+ */
+int print_alias(list_t *node)
+{
+	char *p = NULL, *a = NULL;
+
+	if (node)
 	{
-		tt = _strchr(pond->str, '=');
-		for (dd = pond->str; dd <= tt; dd++)
-		_putchar(*dd);
+		p = _strchr(node->str, '=');
+		for (a = node->str; a <= p; a++)
+			_putchar(*a); /* Print the alias name */
 		_putchar('\'');
-		_puts(tt + 1);
+		_puts(p + 1); /* Print the alias value */
 		_puts("'\n");
 		return (0);
 	}
 	return (1);
 }
-/*to remove error*/
-/**
- * smile - mimics alias builtin
- * @corn: Used to maintain
- *          function prototype.
- *  Return: Always 0
- */
-int smile(corn_t *corn)
-{
-	int pen = 0;
-	char *lid = NULL;
-	list_t *door = NULL;
 
-	if (corn->argc == 1)
+/**
+ * _myalias - mimics the alias builtin
+ * @info: Structure containing potential arguments
+ *
+ * Return: Always 0
+ */
+int _myalias(info_t *info)
+{
+	int i = 0;
+	char *p = NULL;
+	list_t *node = NULL;
+
+	if (info->argc == 1) /* If no arguments provided, print all aliases */
 	{
-		door = corn->smile;
+		node = info->alias;
 		while (node)
 		{
-			smile(node);
-			door = door->next;
+			print_alias(node);
+			node = node->next;
 		}
 		return (0);
 	}
-	for (pen = 1; corn->argv[pen]; pen++)
+
+	for (i = 1; info->argv[i]; i++)
 	{
-		lid = _strchr(corn->argv[pen], '=');
-		if (lid)
-			smile(corn, corn->argv[pen]);
-		else
-			smile(node_starts_with(corn->smile, corn->argv[pen], '='));
+		p = _strchr(info->argv[i], '=');
+		if (p)/* If the argument contains "=", set the alias */
+		set_alias(info, info->argv[i]);
+		else/*If the argument does not contain "="*/
+		/*print the corresponding alias*/
+	print_alias(node_starts_with(info->alias, info->argv[i], '='));
 	}
-/*to remove the line*/
+
 	return (0);
 }
-/*this is a broken code*/

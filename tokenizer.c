@@ -2,97 +2,96 @@
 
 /**
  * **strtow - splits a string into words.
- * @ins: the input string
- * @ds: the delimeter string
- * Return: a pointer to an array of strings, or NULL on failure
+ * @str: the input string
+ * @d: the delimeter string
+ * Return: success is array of strings, or NULL on failure
  */
-/*Repeat delimiters are ignored*/
-char **strtow(char *ins, char *ds)
+/*this begins here*/
+char **strtow(char *str, char *d)
 {
-	int aa, bb, cc, dd, numwords = 0;
-	char **ee;
-
-	if (ins == NULL || ins[0] == 0)
+	int i, j, k, m, numwords = 0;
+	char **s;
+/*Repeat delimiters removed*/
+	if (str == NULL || str[0] == 0)
 		return (NULL);
-	if (!ds)
-		ds = " ";
-	for (aa = 0; ins[aa] != '\0'; aa++)
-		if (!is_delim(ins[aa], ds) && (is_delim(ins[aa + 1], ds) || !ins[aa + 1]))
+	if (!d)
+		d = " ";
+	for (i = 0; str[i] != '\0'; i++)
+		if (!is_delim(str[i], d) && (is_delim(str[i + 1], d) || !str[i + 1]))
 			numwords++;
-/*this code beward length*/
+/*string array returned on success*/
 	if (numwords == 0)
 		return (NULL);
-	ee = malloc((1 + numwords) * sizeof(char *));
-	if (!ee)
+	s = malloc((1 + numwords) * sizeof(char *));
+	if (!s)
 		return (NULL);
-	for (aa = 0, bb = 0; bb < numwords; bb++)
+	for (i = 0, j = 0; j < numwords; j++)
 	{
-		while (is_delim(ins[aa], ds))
-			aa++;
-		cc = 0;
-		while (!is_delim(ins[aa + cc], ds) && ins[aa + cc])
-			cc++;
-		ee[bb] = malloc((cc + 1) * sizeof(char));
-		if (!ee[bb])
+		while (is_delim(str[i], d))
+			i++;
+		k = 0;
+		while (!is_delim(str[i + k], d) && str[i + k])
+			k++;
+		s[j] = malloc((k + 1) * sizeof(char));
+		if (!s[j])
 		{
-			for (cc = 0; cc < bb; cc++)
-				free(ee[cc]);
-			free(ee);
+			for (k = 0; k < j; k++)
+				free(s[k]);
+			free(s);
 			return (NULL);
 		}
-		for (dd = 0; dd < cc; dd++)
-			ee[bb][dd] = ins[aa++];
-		ee[bb][dd] = 0;
+		for (m = 0; m < k; m++)
+			s[j][m] = str[i++];
+		s[j][m] = 0;
 	}
-	ee[bb] = NULL;
-	return (ee);
+	s[j] = NULL;
+	return (s);
 }
-/*thus ends the previous*/
+/*this concludes part one*/
 /**
  * **strtow2 - splits a string into words
- * @ins: the input string
- * @ds: the delimeter
- * Return: on success, or NULL on failure
+ * @str: the input string
+ * @d: the delimeter
+ * Return: success is array of strings, or NULL on failure
  */
-char **strtow2(char *ins, char ds)
+char **strtow2(char *str, char d)
 {
-	int a, b, c, d, numwords = 0;
-	char **e;
-/*to view the string and delimeter*/
-	if (ins == NULL || ins[0] == 0)
+	int i, j, k, m, numwords = 0;
+	char **s;
+/*string is split into words*/
+	if (str == NULL || str[0] == 0)
 		return (NULL);
-	for (a = 0; ins[a] != '\0'; a++)
-		if ((ins[a] != ds && ins[a + 1] == ds) ||
-				    (ins[a] != ds && !ins[a + 1]) || ins[a + 1] == ds)
+	for (i = 0; str[i] != '\0'; i++)
+		if ((str[i] != d && str[i + 1] == d) ||
+				    (str[i] != d && !str[i + 1]) || str[i + 1] == d)
 			numwords++;
 	if (numwords == 0)
 		return (NULL);
-	e = malloc((1 + numwords) * sizeof(char *));
-	if (!e)
+	s = malloc((1 + numwords) * sizeof(char *));
+	if (!s)
 		return (NULL);
-	for (a = 0, b = 0; b < numwords; b++)
-		/*return on success*/
+/*Null is returned if fail*/
+	for (i = 0, j = 0; j < numwords; j++)
 	{
-		while (ins[a] == ds && ins[a] != ds)
-			a++;
-		c = 0;
-		while (ins[a + c] != ds && ins[a + c] && ins[a + c] != ds)
-			c++;
-		e[b] = malloc((b + 1) * sizeof(char));
-		if (!e[b])
+		while (str[i] == d && str[i] != d)
+			i++;
+		k = 0;
+		while (str[i + k] != d && str[i + k] && str[i + k] != d)
+			k++;
+		s[j] = malloc((k + 1) * sizeof(char));
+		if (!s[j])
 		{
-			for (c = 0; c < b; b++)
-				free(e[c]);
-			free(e);
+			for (k = 0; k < j; k++)
+				free(s[k]);
+			free(s);
 			return (NULL);
+/*variables assigned values*/
 		}
-		/*next is for*/
-		for (d = 0; d < c; d++)
-			e[b][d] = ins[a++];
-		e[b][d] = 0;
+		for (m = 0; m < k; m++)
+			s[j][m] = str[i++];
+		s[j][m] = 0;
 	}
-	/*return on success*/
-	e[b] = NULL;
-	return (e);
+	s[j] = NULL;
+	return (s);
 }
-/*welcome to the herd*/
+/*this is the conclusion*/
