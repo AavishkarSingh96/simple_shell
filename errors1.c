@@ -1,63 +1,41 @@
 #include "shell.h"
 
 /**
-<<<<<<< HEAD
- * _erratoi - string to int conversion
- * @s: string
- * Return: 0 no numbers in string, converted number else
- * -1 on error
-=======
- * mouse - string to integer
- * @moon: the string converted
- * Return: 0 if no numbers, converted number otherwise
- *       -1 on error
->>>>>>> d7febdd3e596410343bf9d607f99b57a080e46b7
+ * _erratoi - string to integer conversion
+ * @s: the string
+ * Return: converted number on success, -1 on error
  */
-int mouse(char *moon)
+int _erratoi(char *s)
 {
-	int sun = 0;
+	int i = 0;
 	unsigned long int result = 0;
-<<<<<<< HEAD
 
 	if (*s == '+')
-		s++; /* Skip leading + if present */
-	for (i = 0;  s[i] != '\0'; i++)
+		s++; /* Skip leading '+' if present */
+
+	for (i = 0; s[i] != '\0'; i++)
 	{
-		if (s[i] >= '0' && s[i] <= '9') /*Check if character is digit*/
+		if (s[i] >= '0' && s[i] <= '9') /* Check if character is a digit */
 		{
 			result *= 10;
-			result += (s[i] - '0'); /*Convert character to number*/
-=======
-/*c language used*/
-	if (*moon == '+')
-		moon++;  /* TODO: why does this make main return 255? */
-	for (sun = 0;  moon[sun] != '\0'; sun++)
-/*to do comment inserted*/
-	{
-		if (moon[sun] >= '0' && moon[sun] <= '9')
-		{
-			result *= 10;
-			result += (moon[sun] - '0');
->>>>>>> d7febdd3e596410343bf9d607f99b57a080e46b7
+			result += (s[i] - '0'); /* Convert character to numeric value */
 			if (result > INT_MAX)
-				return (-1); /*Return -1, num exceeds INT_MAX*/
+				return (-1); /* Return -1 if number exceeds INT_MAX */
 		}
 		else
 			return (-1); /* Return -1 if non-digit character found */
 	}
+
 	return (result); /* Return the converted number */
 }
-/*random number is used*/
+
 /**
- * jam - prints an error message
- * @note: parameter & return info
- * @pig: specified error type string
- * Return: 0 if no numbers in string, converted number otherwise
- *        -1 on error
+ * print_error - prints an error message
+ * @info: parameter & return info struct
+ * @estr: string containing specified error type
  */
-void jam(note_t *note, char *pig)
+void print_error(info_t *info, char *estr)
 {
-<<<<<<< HEAD
 	_eputs(info->fname); /* Print file name */
 	_eputs(": ");
 	print_d(info->line_count, STDERR_FILENO); /* Print line count */
@@ -65,34 +43,16 @@ void jam(note_t *note, char *pig)
 	_eputs(info->argv[0]); /* Print command name */
 	_eputs(": ");
 	_eputs(estr); /* Print error string */
-=======
-	_eputs(note->fname);
-	_eputs(": ");
-	print_d(note->line_count, STDERR_FILENO);
-	_eputs(": ");
-	_eputs(note->argv[0]);
-	_eputs(": ");
-	_eputs(pig);
->>>>>>> d7febdd3e596410343bf9d607f99b57a080e46b7
 }
-/*why remove comments*/
+
 /**
-<<<<<<< HEAD
- * print_d - function prints a decimal number
+ * print_d - prints a decimal (integer) number (base 10)
  * @input: the input
- * @fd: the filedescriptor to write to
- *
-=======
- * news - prints a decimal(base 10)
- * @start: the input
- * @gta: filedescriptor
- *c is really hard
->>>>>>> d7febdd3e596410343bf9d607f99b57a080e46b7
+ * @fd: file descriptor to write to
  * Return: number of characters printed
  */
-int news(int start, int gta)
+int print_d(int input, int fd)
 {
-<<<<<<< HEAD
 	int (*__putchar)(char) = (fd == STDERR_FILENO) ? _eputchar : _putchar;
 	int i, count = 0;
 	unsigned int _abs_, current;
@@ -102,135 +62,77 @@ int news(int start, int gta)
 		_abs_ = -input;
 		__putchar('-'); /* Print '-' sign for negative numbers */
 		count++;
-=======
-	int (*__putchar)(char) = _putchar;
-	int abc, xyz = 0;
-	unsigned int _abs_, current;
-
-	if (gta == STDERR_FILENO)
-		__putchar = _eputchar;
-	if (start < 0)
-	{
-		_abs_ = -start;
-		__putchar('-');
-		xyz++;
->>>>>>> d7febdd3e596410343bf9d607f99b57a080e46b7
 	}
 	else
-		_abs_ = start;
+		_abs_ = input;
+
 	current = _abs_;
-	for (abc = 1000000000; abc > 1; abc /= 10)
+	for (i = 1000000000; i > 1; i /= 10)
 	{
-		if (_abs_ / abc)
+		if (_abs_ / i)
 		{
-<<<<<<< HEAD
-			__putchar('0' + current / i);/* Print each digit of the number */
+			__putchar('0' + current / i); /* Print each digit of the number */
 			count++;
-=======
-			__putchar('0' + current / abc);
-			xyz++;
->>>>>>> d7febdd3e596410343bf9d607f99b57a080e46b7
 		}
-		current %= abc;
+		current %= i;
 	}
-<<<<<<< HEAD
 	__putchar('0' + current); /* Print the last digit */
 	count++;
 
 	return (count); /* Return the number of characters printed */
-=======
-	__putchar('0' + current);
-	xyz++;
-/*this is a long code*/
-	return (xyz);
->>>>>>> d7febdd3e596410343bf9d607f99b57a080e46b7
 }
-/*hopefully the last section*/
+
 /**
-<<<<<<< HEAD
- * convert_number - converter function
+ * convert_number - converts a number to a string
  * @num: number
  * @base: base
- * @flags: argument
- *
-=======
- * dolly - clone of itoa
- * @digit: number
- * @acid: base
- * @red: argument flags
- *this is cool
->>>>>>> d7febdd3e596410343bf9d607f99b57a080e46b7
- * Return: string
+ * @flags: argument flags
+ * Return: string representation of the number
  */
-char *dolly(long int digit, int acid, int red)
-/*A space for neatness*/
+char *convert_number(long int num, int base, int flags)
 {
-	static char *array;
 	static char buffer[50];
 	char sign = 0;
-	char *sylar;
-	unsigned long x = digit;
-/*a break inserted*/
-	if (!(red & CONVERT_UNSIGNED) && digit < 0)
+	char *ptr;
+	unsigned long n = num;
+	const char *array = (flags & CONVERT_LOWERCASE) ? "0123456789abcdef" :
+	"0123456789ABCDEF";
+
+	if (!(flags & CONVERT_UNSIGNED) && num < 0)
 	{
-<<<<<<< HEAD
 		n = -num;
 		sign = '-'; /* Set the sign character for negative numbers */
-=======
-		x = -digit;
-/*x is equal to*/
-		sign = '-';
->>>>>>> d7febdd3e596410343bf9d607f99b57a080e46b7
-
 	}
-	array = red & CONVERT_LOWERCASE ? "0123456789abcdef" : "0123456789ABCDEF";
-	sylar = &buffer[49];
-	*sylar = '\0';
-/*coding feels like magic*/
-	do	{
-<<<<<<< HEAD
-		*--ptr = array[n % base];/*Convert each digit to corresponding character*/
+
+	ptr = &buffer[49];
+	*ptr = '\0';
+
+	do {
+		*--ptr = array[n % base];
+		/* Convert each digit to the corresponding character */
 		n /= base;
 	} while (n != 0);
 
 	if (sign)
 		*--ptr = sign; /* Add the sign character if necessary */
+
 	return (ptr); /* Return the resulting string */
-=======
-		*--sylar = array[x % acid];
-		x /= acid;
-	} while (x != 0);
-/*liken coding to x solve*/
-	if (sign)
-		*--sylar = sign;
-	return (sylar);
->>>>>>> d7febdd3e596410343bf9d607f99b57a080e46b7
 }
-/*another space here*/
+
 /**
-<<<<<<< HEAD
  * remove_comments - replaces first instance of '#' with '\0'
- * @buf: address of the string
- *
-=======
- * rcm - function replaces first instance of '#' with '\0'
- * @strmod: string to modify
- *does the code work
->>>>>>> d7febdd3e596410343bf9d607f99b57a080e46b7
- * Return: Always 0;
+ * @buf: address of the string to modify
  */
-void rcm(char *strmod)
+void remove_comments(char *buf)
 {
-	int aa;
-/*used aa instead*/
-	for (aa = 0; strmod[aa] != '\0'; aa++)
-		if (buf[aa] == '#' && (!aa || strmod[aa - 1] == ' '))
+	int k;
+
+	for (k = 0; buf[k] != '\0'; k++)
+	{
+		if (buf[k] == '#' && (!k || buf[k - 1] == ' '))
 		{
-<<<<<<< HEAD
-			buf[i] = '\0'; /* Replace '#' with null character '\0' */
-=======
-			strmod[aa] = '\0';
->>>>>>> d7febdd3e596410343bf9d607f99b57a080e46b7
+			buf[k] = '\0'; /* Replace # with null character '\0' */
 			break;
 		}
+	}
 }
