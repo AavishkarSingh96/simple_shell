@@ -1,164 +1,87 @@
 #include "shell.h"
 
 /**
- * prstr - input string
- * @line: the string
- *c is used here
+ * _eputs - prints a string to stderr
+ * @str: The string to be printed
+ *
  * Return: Nothing
  */
-void prstr(char *line)
+void _eputs(char *str)
 {
-<<<<<<< HEAD
-if (!str)
-return;
+	int i = 0;
 
-while (*str)
-{
-_eputchar(*str);
-str++;
-}
-/*The code above checks whether str is null and returns it if so.*/
-/*If not null, it goes through each character of the string using a pointer*/
-=======
-	int aa = 0;
-/*mix not up the two*/
-	if (!line)
+	if (!str)
 		return;
-	while (line[aa] != '\0')
+
+	while (str[i] != '\0')
 	{
-		_camera(line[aa]);
-		aa++;
+		_eputchar(str[i]); /* Call _eputchar to print each character */
+		i++;
 	}
->>>>>>> d7febdd3e596410343bf9d607f99b57a080e46b7
 }
-/*why is that below*/
+
 /**
- * camera - writes c to stderr
- * @pp: character print
- *scroll down
+ * _eputchar - writes a character to stderr
+ * @c: The character
+ *
  * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
+ *         On error, -1 is returned
  */
-int camera(char pp)
+int _eputchar(char c)
 {
-<<<<<<< HEAD
-static char buf[WRITE_BUF_SIZE] = "";
-static int i;
-
-if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE - 1)
-{
-write(2, buf, i);
-i = 0;
-}
-if (c != BUF_FLUSH)
-buf[i++] = c;
-
-return (1);
-/*buf is a static character array declared with size of [WRITE_BUF_SIZE]*/
-/*if c = BUF_FLUSH or i exceeds [WRITE_BUF_SIZE - 1],*/
-/*buf elements will be errored*/
-=======
-	static int bb;
+	static int i;
 	static char buf[WRITE_BUF_SIZE];
-/*does this make sense*/
-	if (pp == BUF_FLUSH || bb >= WRITE_BUF_SIZE)
+
+	if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
 	{
-		write(2, buf, bb);
-		bb = 0;
+		write(2, buf, i); /* Write the buffer to stderr */
+		i = 0;
 	}
-	if (pp != BUF_FLUSH)
-		buf[bb++] = pp;
+	if (c != BUF_FLUSH)
+		buf[i++] = c;
 	return (1);
->>>>>>> d7febdd3e596410343bf9d607f99b57a080e46b7
 }
-/*the last section*/
+
 /**
-<<<<<<< HEAD
- * _putfd - writes the character c to given fd
- * @c: The character to print
- * @fd: The file descriptor to write to
-=======
- * tree - c to given fd
- * @pp: The character to print
- * @bam: The filedescriptor to write to
->>>>>>> d7febdd3e596410343bf9d607f99b57a080e46b7
+ * _putfd - writes a character
+ * @c: The character
+ * @fd: The file descriptor
  *
  * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
+ *         On error, -1 is returned
  */
-int tree(char pp, int bam)
+int _putfd(char c, int fd)
 {
-<<<<<<< HEAD
-static char buf[WRITE_BUF_SIZE] = "";
-static int i;
+	static int phy;
+	static char buf[WRITE_BUF_SIZE];
 
-if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE - 1)
-{
-write(fd, buf, i);
-i = 0;
-}
-
-if (c != BUF_FLUSH)
-buf[i++] = c;
-
-return (1);
-/*if c = BUF_FLUSH and i exceeds [WRITE_BUF_SIZE - 1]*/
-/*buf elements will be written to specified fd*/
-}
-
-/**
- * _putsfd - prints an input string
- * @str: the string to be printed
- * @fd: the file descriptor to write to
- *
-=======
-	static int ff;
-	static char pen[WRITE_BUF_SIZE];
-
-	if (pp == BUF_FLUSH || ff >= WRITE_BUF_SIZE)
+	if (c == BUF_FLUSH || phy >= WRITE_BUF_SIZE)
 	{
-		write(bam, pen, ff);
-		ff = 0;
+		write(fd, buf, phy); /* Write the buffer to the specified file descriptor */
+		phy = 0;
 	}
-	if (pp != BUF_FLUSH)
-		pen[ff++] = pp;
+	if (c != BUF_FLUSH)
+		buf[phy++] = c;
 	return (1);
 }
 
 /**
- * xerox - input string
- * @bank: string printed
- * @green: the filedescriptor
- *this is the last section
->>>>>>> d7febdd3e596410343bf9d607f99b57a080e46b7
- * Return: the number of chars put
+ * _putsfd - prints a string
+ * @str: The string
+ * @fd: The file descriptor
+ *
+ * Return: The number of characters written
  */
-int xerox(char *bank, int green)
+int _putsfd(char *str, int fd)
 {
-<<<<<<< HEAD
-int count = 0;
+	int x = 0;
 
-if (!str)
-return (0);
-
-while (*str)
-{
-count += _putfd(*str++, fd);
-}
-
-return (count);
-/*if str is null, 0 is returned*/
-/*if not,function enters a loop going through each character using a pointer*/
-/*after iterating through all the values,it returns the final value of count*/
-=======
-	int gg = 0;
-/*this is necessary*/
-	if (!bank)
+	if (!str)
 		return (0);
-	while (*bank)
+
+	while (*str)
 	{
-		gg += printgreen(*bank++, green);
+		x += _putfd(*str++, fd); /* Call _putfd to print each character */
 	}
-	return (gg);
->>>>>>> d7febdd3e596410343bf9d607f99b57a080e46b7
+	return (x);
 }
