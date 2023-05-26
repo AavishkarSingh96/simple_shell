@@ -1,17 +1,17 @@
 #include "shell.h"
 
 /**
- * **strtow - splits a string into words.
+ * **strtow - splits a string and same delimiters are ignored
  * @str: the input string
  * @d: the delimeter string
- * Return: success is array of strings, or NULL on failure
+ * Return: array of strings, or NULL on failure
  */
-/*this begins here*/
+
 char **strtow(char *str, char *d)
 {
 	int i, j, k, m, numwords = 0;
 	char **s;
-/*Repeat delimiters removed*/
+/*the string is split into words*/
 	if (str == NULL || str[0] == 0)
 		return (NULL);
 	if (!d)
@@ -19,7 +19,7 @@ char **strtow(char *str, char *d)
 	for (i = 0; str[i] != '\0'; i++)
 		if (!is_delim(str[i], d) && (is_delim(str[i + 1], d) || !str[i + 1]))
 			numwords++;
-/*string array returned on success*/
+/*repeats are ignored*/
 	if (numwords == 0)
 		return (NULL);
 	s = malloc((1 + numwords) * sizeof(char *));
@@ -47,18 +47,18 @@ char **strtow(char *str, char *d)
 	s[j] = NULL;
 	return (s);
 }
-/*this concludes part one*/
+/*fail reutns a NULL*/
 /**
  * **strtow2 - splits a string into words
  * @str: the input string
  * @d: the delimeter
- * Return: success is array of strings, or NULL on failure
+ * Return: a pointer to an array of strings, or NULL on failure
  */
 char **strtow2(char *str, char d)
 {
 	int i, j, k, m, numwords = 0;
 	char **s;
-/*string is split into words*/
+/*inout string is used within code*/
 	if (str == NULL || str[0] == 0)
 		return (NULL);
 	for (i = 0; str[i] != '\0'; i++)
@@ -70,7 +70,6 @@ char **strtow2(char *str, char d)
 	s = malloc((1 + numwords) * sizeof(char *));
 	if (!s)
 		return (NULL);
-/*Null is returned if fail*/
 	for (i = 0, j = 0; j < numwords; j++)
 	{
 		while (str[i] == d && str[i] != d)
@@ -85,7 +84,6 @@ char **strtow2(char *str, char d)
 				free(s[k]);
 			free(s);
 			return (NULL);
-/*variables assigned values*/
 		}
 		for (m = 0; m < k; m++)
 			s[j][m] = str[i++];
@@ -94,4 +92,4 @@ char **strtow2(char *str, char d)
 	s[j] = NULL;
 	return (s);
 }
-/*this is the conclusion*/
+/*why won't this read*/

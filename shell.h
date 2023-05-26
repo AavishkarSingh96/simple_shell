@@ -151,6 +151,7 @@ char *_strchr(char *, char);
 /* toem_tokenizer.c */
 char **strtow(char *, char *);
 char **strtow2(char *, char);
+int is_delim(char, char *);
 
 /* toem_realloc.c */
 char *_memset(char *, char, unsigned int);
@@ -163,7 +164,7 @@ int bfree(void **);
 /* toem_atoi.c */
 int interactive(info_t *);
 int is_delim(char, char *);
-int _isalpha(int);
+int _isalpha(int);i
 int _atoi(char *);
 
 /* toem_errors1.c */
