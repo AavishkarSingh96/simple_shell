@@ -1,63 +1,64 @@
 #include "shell.h"
 
 /**
- * _memset - fills memory with a constant byte
- * @s: the pointer to the memory area
- * @b: the byte to fill *s with
- * @n: the amount of bytes to be filled
- * Return: (s) a pointer to the memory area s
+ * _memset - fills constant byte memory
+ * @arrow: the pointer
+ * @bite: the byte
+ * @nyte: the amount of bytes
+ * Return: pointer to the memory area
  */
-char *_memset(char *s, char b, unsigned int n)
+char *_memset(char *arrow, char bite, unsigned int nyte)
+/*pointer to memory*/
 {
-	unsigned int i;
-
-	for (i = 0; i < n; i++)
-		s[i] = b;
-	return (s);
+	unsigned int aa;
+/*number of bytes states*/
+	for (aa = 0; aa < nyte; aa++)
+		arrow[aa] = bite;
+	return (arrow);
 }
-
+/*memory bytes pointer declared*/
 /**
  * ffree - frees a string of strings
- * @pp: string of strings
+ * @snum: string of strings
  */
-void ffree(char **pp)
+void ffree(char **snum)
 {
-	char **a = pp;
-
-	if (!pp)
+	char **z = snum;
+/*number of free strings declared*/
+	if (!snum)
 		return;
-	while (*pp)
-		free(*pp++);
-	free(a);
+	while (*snum)
+		free(*snum++);
+	free(z);
 }
-
+/*memory area pointed*/
 /**
- * _realloc - reallocates a block of memory
- * @ptr: pointer to previous malloc'ated block
- * @old_size: byte size of previous block
- * @new_size: byte size of new block
- *
- * Return: pointer to da ol'block nameen.
+ * _realloc - reallocates memory
+ * @prbl: previous malloc'ated block
+ * @olsi: byte size of previous
+ * @nesi: byte size of new
+ *c language used here
+ * Return: pointer to old block.
  */
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
+void *_realloc(void *prbl, unsigned int olsi, unsigned int nesi)
 {
-	char *p;
-
-	if (!ptr)
-		return (malloc(new_size));
-	if (!new_size)
-		return (free(ptr), NULL);
-	if (new_size == old_size)
-		return (ptr);
-
-	p = malloc(new_size);
-	if (!p)
+	char *a;
+/*new data points to old data*/
+	if (!prbl)
+		return (malloc(nesi));
+	if (!nesi)
+		return (free(prbl), NULL);
+	if (nesi == olsi)
+		return (prbl);
+/*byte sizes of new and old block*/
+	a = malloc(nesi);
+	if (!a)
 		return (NULL);
-
-	old_size = old_size < new_size ? old_size : new_size;
-	while (old_size--)
-		p[old_size] = ((char *)ptr)[old_size];
-	free(ptr);
-	return (p);
+/*point to new memory block*/
+	olsi = olsi < nesi ? olsi : nesi;
+	while (olsi--)
+		a[olsi] = ((char *)prbl)[olsi];
+	free(prbl);
+	return (a);
 }
 /*not the box*/

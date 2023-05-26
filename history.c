@@ -3,46 +3,51 @@
 /**
  * get_history_file - gets the history file
  * @info: parameter struct
- *
+ *c language is used here
  * Return: allocated string containg history file
  */
-
+/*this section starts here*/
 char *get_history_file(info_t *info)
+/*Pinter for file history*/
 {
 	char *buf, *dir;
 
 	dir = _getenv(info, "HOME=");
 	if (!dir)
 		return (NULL);
+/*code will return when completed*/
 	buf = malloc(sizeof(char) * (_strlen(dir) + _strlen(HIST_FILE) + 2));
 	if (!buf)
 		return (NULL);
+/*Null returns to zero*/
 	buf[0] = 0;
 	_strcpy(buf, dir);
 	_strcat(buf, "/");
 	_strcat(buf, HIST_FILE);
 	return (buf);
 }
-
+/*this section ends here*/
 /**
- * write_history - creates a file, or appends to an existing file
+ * write_history - creates a file.
  * @info: the parameter struct
- *
+ *or appends to an existing file
  * Return: 1 on success, else -1
  */
 int write_history(info_t *info)
+/*next section begins here*/
 {
 	ssize_t fd;
 	char *filename = get_history_file(info);
 	list_t *node = NULL;
-
+/*filename is specified*/
 	if (!filename)
 		return (-1);
-
+/*code will then return*/
 	fd = open(filename, O_CREAT | O_TRUNC | O_RDWR, 0644);
 	free(filename);
 	if (fd == -1)
 		return (-1);
+/*code creates file from history*/
 	for (node = info->history; node; node = node->next)
 	{
 		_putsfd(node->str, fd);
@@ -52,47 +57,53 @@ int write_history(info_t *info)
 	close(fd);
 	return (1);
 }
-
+/*this section ends here*/
 /**
  * read_history - reads history from file
  * @info: the parameter struct
- *
+ *c language is used here
  * Return: histcount on success, 0 otherwise
  */
 int read_history(info_t *info)
+/*files to be read are selected*/
 {
-	int i, last = 0, linecount = 0;
+	int aa, last = 0, linecount = 0;
 	ssize_t fd, rdlen, fsize = 0;
 	struct stat st;
 	char *buf = NULL, *filename = get_history_file(info);
-
+/*file history retrieved*/
 	if (!filename)
 		return (0);
-
+/*file name derived*/
 	fd = open(filename, O_RDONLY);
 	free(filename);
 	if (fd == -1)
 		return (0);
+/*code will return as expected*/
 	if (!fstat(fd, &st))
 		fsize = st.st_size;
 	if (fsize < 2)
 		return (0);
+/*code returns as desired*/
 	buf = malloc(sizeof(char) * (fsize + 1));
 	if (!buf)
 		return (0);
+/*buffer is derived*/
 	rdlen = read(fd, buf, fsize);
 	buf[fsize] = 0;
 	if (rdlen <= 0)
 		return (free(buf), 0);
+/*upon completion, this will revert*/
 	close(fd);
-	for (i = 0; i < fsize; i++)
-		if (buf[i] == '\n')
+	for (aa = 0; aa < fsize; aa++)
+		if (buf[aa] == '\n')
 		{
-			buf[i] = 0;
+			buf[aa] = 0;
 			build_history_list(info, buf + last, linecount++);
-			last = i + 1;
+			last = aa + 1;
 		}
-	if (last != i)
+/*move to final part of this*/
+	if (last != aa)
 		build_history_list(info, buf + last, linecount++);
 	free(buf);
 	info->histcount = linecount;
@@ -101,7 +112,7 @@ int read_history(info_t *info)
 	renumber_history(info);
 	return (info->histcount);
 }
-
+/*this section ends*/
 /**
  * build_history_list - adds entry to a history linked list
  * @info: Structure containing potential arguments. Used to maintain
@@ -124,21 +135,23 @@ int build_history_list(info_t *info, char *buf, int linecount)
 }
 
 /**
- * renumber_history - renumbers the history linked list after changes
+ * renumber_history - to linked list after changes
  * @info: Structure containing potential arguments. Used to maintain
- *
+ *c language used here
  * Return: the new histcount
  */
 int renumber_history(info_t *info)
+/*new final section starts here*/
 {
 	list_t *node = info->history;
-	int i = 0;
-
+	int aa = 0;
+/*variable assigned value*/
 	while (node)
 	{
-		node->num = i++;
+		node->num = aa++;
 		node = node->next;
 	}
-	return (info->histcount = i);
+	return (info->histcount = aa);
+/*code returns upon completion*/
 }
 /*so human looking*/
