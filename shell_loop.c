@@ -50,6 +50,9 @@ int hsh(info_t *info, char **law)
  * @info: the parameter & return info struct
  *c language used again
  * Return: -1 if builtin not found,
+ * 0 if builtin executed successfully,
+ * 1 if builtin found but not successful,
+ * 2 if builtin signals exit()
  * 0 success,
  * 1 found but not successful,
  * 2 signals exit()

@@ -71,30 +71,25 @@ int read_history(info_t *info)
 	ssize_t fd, rdlen, fsize = 0;
 	struct stat st;
 	char *buf = NULL, *filename = get_history_file(info);
-/*file history retrieved*/
-	if (!filename)
+
+	if (!filename) /*file history retrieved*/
 		return (0);
-/*file name derived*/
-	fd = open(filename, O_RDONLY);
+	fd = open(filename, O_RDONLY);/*file name derived*/
 	free(filename);
 	if (fd == -1)
 		return (0);
-/*code will return as expected*/
-	if (!fstat(fd, &st))
+	if (!fstat(fd, &st))/*code will return as expected*/
 		fsize = st.st_size;
 	if (fsize < 2)
 		return (0);
-/*code returns as desired*/
-	buf = malloc(sizeof(char) * (fsize + 1));
+	buf = malloc(sizeof(char) * (fsize + 1));/*code returns as desired*/
 	if (!buf)
 		return (0);
-/*buffer is derived*/
-	rdlen = read(fd, buf, fsize);
+	rdlen = read(fd, buf, fsize);/*buffer is derived*/
 	buf[fsize] = 0;
 	if (rdlen <= 0)
 		return (free(buf), 0);
-/*upon completion, this will revert*/
-	close(fd);
+	close(fd);/*upon completion, this will revert*/
 	for (aa = 0; aa < fsize; aa++)
 		if (buf[aa] == '\n')
 		{
@@ -102,8 +97,7 @@ int read_history(info_t *info)
 			build_history_list(info, buf + last, linecount++);
 			last = aa + 1;
 		}
-/*move to final part of this*/
-	if (last != aa)
+	if (last != aa)/*move to final part of this*/
 		build_history_list(info, buf + last, linecount++);
 	free(buf);
 	info->histcount = linecount;
